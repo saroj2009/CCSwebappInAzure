@@ -11,9 +11,10 @@ namespace CCSmvc.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
-
+            //ViewBag.emp = "True";
             List<Empdetails> Empdetails = new List<Empdetails>();
             Empdetails = getdata();
             //Empdetails Obj = new Empdetails();
@@ -37,7 +38,23 @@ namespace CCSmvc.Controllers
             //Empdetails.Add(Obj);
             return View(Empdetails.ToList());
         }
-        public List<Empdetails> getdata()
+        [HttpPost]
+        [ActionName("Index")]
+        public ActionResult IndexPost(string inputlg)
+        {
+            string strName = inputlg;
+            string[] strNamesArray = { "409702", "vernie", "joel" };
+
+            if (strNamesArray.Any(x => x == strName))
+            {
+                ViewBag.emp = "1";
+            }
+           
+            List<Empdetails> Empdetails = new List<Empdetails>();
+            Empdetails = getdata();
+            return View(Empdetails.ToList());
+        }
+            public List<Empdetails> getdata()
         {
 
             List<Empdetails> Empdetails = new List<Empdetails>();

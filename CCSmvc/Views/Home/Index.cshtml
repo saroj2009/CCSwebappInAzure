@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "CCSTeam";
 }
-
+@using (Html.BeginForm("Index", "Home", FormMethod.Post)) { 
 <table border="0">
     <tr>
         <td style="width: 200px"></td>
@@ -41,7 +41,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#myPage">HOME</a></li>
                             <li><a href="#band">TEAM</a></li>
+                            @if (ViewBag.emp != null || ViewBag.emp == "1")
+                            {
+                                
                             <li><a href="@Url.Action("GetAllEmpDetails", "Employee")">PROFILE</a></li>
+                                    
+                                }
                             <li><a href="#tour" data-toggle="modal" data-target="#myModal">LogIn</a></li>
 
                             @*<li><a href="#contact">CONTACT</a></li>
@@ -239,15 +244,16 @@
             <!-- Container (Contact Section) -->
             <!-- Add Google Maps -->
             <script>
-                function myMap() {
-                    var myCenter = new google.maps.LatLng(41.878114, -87.629798);
-                    var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: false, mapTypeId: google.maps.MapTypeId.ROADMAP };
-                    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-                    var marker = new google.maps.Marker({ position: myCenter });
-                    marker.setMap(map);
-                }
+                //function myMap() {
+                //    var myCenter = new google.maps.LatLng(41.878114, -87.629798);
+                //    var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: false, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                //    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                //    var marker = new google.maps.Marker({ position: myCenter });
+                //    marker.setMap(map);
+                //}
+               
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+            @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>*@
             <!--
             To use this code on your website, get a free API key from Google.
             Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
@@ -282,15 +288,16 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Log In..</h4>
             </div>
-            <p>In progress....</p>
-            @*<div class="modal-body">
-                    <div class="col-xs-4">
-                        <label for="inputlg">User ID/Emp ID:</label>
-                        <input class="form-control input-lg" id="inputlg" type="text">
-                        <button type="button" class="btn btn-primary">LogIn</button>
-                    </div>
-                </div>*@
+            @*<p>In progress....</p>*@
+            <div class="modal-body">
+                    
+                <div class="col-sm-6">
+                    <label for="inputlg" >User ID</label>
+                    <input id="inputlg" class="form-control input-group-lg reg_name" type="text" name="inputlg" title="Enter User ID" placeholder="409502">
+                </div>
+                </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">LogIn</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -298,3 +305,4 @@
     </div>
 </div>
 <!-- Footer -->
+}
