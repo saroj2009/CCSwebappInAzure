@@ -43,7 +43,7 @@ namespace CCSmvc.Controllers
         public ActionResult IndexPost(string inputlg)
         {
             string strName = inputlg;
-            string[] strNamesArray = { "409702", "vernie", "joel" };
+            string[] strNamesArray = { "159248", "288908", "409702", "590433", "505616", "556810", "457181", "553596", "585391" };
 
             if (strNamesArray.Any(x => x == strName))
             {

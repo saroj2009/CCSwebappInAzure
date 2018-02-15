@@ -23,14 +23,22 @@
             Description
         </th>
         <th>
-            DOB
+            DOB(dd/mm/yyyy)
         </th>
 
         <th>Action</th>
     </tr>
     @foreach (var item in Model)
     {
+        var myDOB = item.DOB;
+        {
 
+            if (myDOB.Length > 4)
+            {
+                string[] str1 = myDOB.Split('/');
+                myDOB = str1[0] + "/" + str1[1] + "/" + "XXXX";
+            }
+        }
         <tr>
             <td>
                 @item.Id
@@ -45,7 +53,7 @@
                 @item.Description
             </td>
             <td>
-                @item.DOB
+                @myDOB
             </td>
 
             <td>

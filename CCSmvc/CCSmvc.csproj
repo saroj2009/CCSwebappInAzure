@@ -344,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Service References\Application Insights\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -352,7 +353,6 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\azureteam - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sarojwebapp - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sarojwebapp - Web Deploy.pubxml" />
@@ -360,6 +360,7 @@
     <Content Include="Views\Employee\AddEmployee.cshtml" />
     <Content Include="Views\Employee\EditEmpDetails.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <None Include="Properties\PublishProfiles\skptest1 - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -383,6 +384,8 @@
           <DevelopmentServerPort>54338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:54338/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:54338/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

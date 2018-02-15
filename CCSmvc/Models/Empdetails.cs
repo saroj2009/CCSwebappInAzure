@@ -32,7 +32,7 @@ namespace CCSmvc.Models
         public string getDOB(string val)
         {
             string strReturnval = "1st Jan";
-            string[] str = val.Split('-');
+            string[] str = val.Split('/');
             int date = Convert.ToInt16(str[0]);
             int month = Convert.ToInt16(str[1]);
             switch (date)
