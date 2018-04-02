@@ -69,6 +69,7 @@ namespace CCSmvc.Controllers
                 myConnection.Open();
                 using (SqlDataReader oReader = oCmd.ExecuteReader())
                 {
+                    int i = 1;
                     while (oReader.Read())
                     {
                         common cmn = new common();
@@ -76,13 +77,14 @@ namespace CCSmvc.Controllers
                         EmpdetailsObj.Name = oReader["Name"].ToString();
                         EmpdetailsObj.Description = oReader["Description"].ToString();
                         EmpdetailsObj.DOB = cmn.getDOB(oReader["DOB"].ToString());
-                        EmpdetailsObj.aid = "#"+oReader["Name"].ToString();
-                        EmpdetailsObj.dvid = oReader["Name"].ToString();
+                        EmpdetailsObj.aid = "#"+"div" + i.ToString();
+                        EmpdetailsObj.dvid = "div" + i.ToString();
                         if (Convert.ToString(oReader["ImagePath"]) == "")
                             EmpdetailsObj.Image = "NoImage.png";
                         else
                         EmpdetailsObj.Image = oReader["ImagePath"].ToString();
                         Empdetails.Add(EmpdetailsObj);
+                        i+
                     }
 
                     myConnection.Close();
