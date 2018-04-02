@@ -132,7 +132,7 @@ namespace CCSmvc.Models
                     break;
 
             }
-            switch (date)
+            switch (month)
             {
                 case 1:
                     strReturnval = strReturnval +" "+ "January";
