@@ -84,7 +84,7 @@ namespace CCSmvc.Controllers
                         else
                         EmpdetailsObj.Image = oReader["ImagePath"].ToString();
                         Empdetails.Add(EmpdetailsObj);
-                        i+
+                        i++;
                     }
 
                     myConnection.Close();
