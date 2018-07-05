@@ -1,0 +1,80 @@
+﻿@model IEnumerable<CCSmvc1.Models.EmployeeModel>
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_MasterLayoutPage2.cshtml";
+}
+
+<p align="right" style="padding-right:200px">
+    @Html.ActionLink("Create New", "AddEmployee")
+</p>
+<table border="1">
+    <tr style="background-color:aliceblue">
+        <th>
+            Emp ID
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            DOB(dd/mm/yyyy)
+        </th>
+
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var myDOB = item.DOB;
+        {
+
+            if (myDOB.Length > 4)
+            {
+                string[] str1 = myDOB.Split('/');
+                myDOB = str1[0] + "/" + str1[1] + "/" + "XXXX";
+            }
+        }
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                <img src=@item.Url@item.ImagePath alt="" style="height:50px; width:50px" />
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @myDOB
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditEmpDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteEmp", new { id = item.Id, filename = item.ImagePath }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <div class="col-md-offset-2 col-md-10" style="color:green">
+                    @ViewBag.Message
+                </div>
+            </td>
+        </tr>
+
+    }
+</table>
+<br />
+
+<div align="right" style="padding-right:200px">
+    @Html.ActionLink("Back to List", "Index","Home")
+</div>

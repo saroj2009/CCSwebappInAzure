@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterLayoutPage2.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+    <script src="~/Scripts/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/jquery.jqGrid.min.js"></script>
+
+    <script>
+        $(function () {
+            debugger;
+            $("#Demogrid").jqGrid
+            ({
+                    url: "/Payment/GetPaymentDetails",
+                datatype: 'json',
+                mtype: 'Get',
+                //table header name
+                colNames: ['Id', 'EmpID', 'Name', 'Description', 'Email', 'DOB', 'Amount', 'Date', 'Month', 'Status'],
+                //colModel takes the data from controller and binds to grid
+                colModel: [
+                {
+                        name: 'Id',
+                        editable: true,
+                    key: true,
+                    hidden: true,
+                    search: false
+                    },
+                {
+                    name: "EmpID", editable: true, editrules: { required: true }, search: true
+                },
+                {
+                    name: "Name", editable: true, editrules: { required: true }, search: true
+                },
+                {
+                    name: 'Description', editable: true, editrules: { required: false }, search: false
+                },
+                {
+                    name: "Email", editable: true, editrules: { required: true }, search: true
+                },
+                {
+                    name: "DOB", editable: true, editrules: { required: true }, search: false
+                },
+                {
+                    name: "Amount", editable: true, editrules: { required: true, number: true }, search: false
+                },
+                {
+                    name: "Date", editable: true, editrules: { required: true }, search: false
+                },
+                {
+                    name: "Month", editable: true, editrules: { required: true }, search: true, sortable: true
+                },
+                {
+                    name: "Status", editable: true, editrules: { required: true }, search: true
+                }
+                ],
+                height: '100%',
+                viewrecords: true,
+                caption: 'Team Payment Details',
+                emptyrecords: 'No records',
+                rowNum: 10,
+
+                pager: jQuery('#pager'),
+                rowList: [10, 20, 30, 40],
+
+                jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    Id: "0"
+                },
+                autowidth: true
+            }).navGrid('#pager',
+            {
+                edit: true,
+                add: true,
+                del: true,
+                search: true,
+                refresh: true,
+                closeAfterSearch: true
+            },
+            {
+                // edit option
+                zIndex: 100,
+                url: '/Payment/EditPayments',
+                closeOnEscape: true,
+                closeAfterEdit: true,
+                recreateForm: true,
+                afterComplete: function (response)
+                {
+                    if (response.responseText)
+                    {
+                        alert(response.responseText);
+                    }
+                }
+            },
+            {
+                // add option
+                zIndex: 100,
+                url: "/Payment/CreatePayments",
+                closeOnEscape: true,
+                closeAfterAdd: true,
+                afterComplete: function (response) {
+                    if (response.responseJSON)
+                    {
+                        if (response.responseJSON == "Saved Successfully") {
+                            alert("Saved Successfully");
+                        }
+                        else {
+                            var message = "";
+                            for (var i = 0; i < response.responseJSON.length; i++) {
+                                message += response.responseJSON[i];
+                                message += "\n";
+                            }
+                        }
+
+                    }
+                }
+            },
+            {
+                // delete option
+                zIndex: 100,
+                url: "/Payment/DeletePayments",
+                closeOnEscape: true,
+                closeAfterDelete: true,
+                recreateForm: true,
+                msg: "Are you sure you want to delete this Record?",
+                afterComplete: function (response) {
+                    if (response.responseText) {
+                        alert(response.responseText);
+                    }
+                }
+            }
+
+            );
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <table id="Demogrid"></table>
+        <div id="pager"></div>
+    </div>
+</body>
+</html>
