@@ -18,9 +18,17 @@ namespace CCSmvc.Controllers
 {
     public class EmployeeController : Controller
     {
+        //// GET: Employee/GetAllEmpDetails
+        //public ActionResult GetAllEmpDetails()
+        //{
+        //    EmpRepository EmpRepo = new EmpRepository();
+        //    return View(EmpRepo.GetAllEmployees());
+        //}
+        
         // GET: Employee/GetAllEmpDetails
-        public ActionResult GetAllEmpDetails()
+        public ActionResult GetAllEmpDetails(string msg)
         {
+            ViewBag.loginmsg = msg;
             EmpRepository EmpRepo = new EmpRepository();
             return View(EmpRepo.GetAllEmployees());
         }
@@ -109,7 +117,21 @@ namespace CCSmvc.Controllers
         public ActionResult EditEmpDetails(int id)
         {
             EmpRepository EmpRepo = new EmpRepository();
-            return View(EmpRepo.GetAllEmployees().Find(Emp => Emp.Id == id));
+            if (Convert.ToString(TempData["uid"]) == "" || Convert.ToString(TempData["uid"]) == null)
+            {
+                return RedirectToAction("GetAllEmpDetails", "Employee", new { msg = "Please log in for profile update" });
+                
+            }
+           else if (Convert.ToString(TempData["uid"]) == Convert.ToString(id))
+                {
+               
+                return View(EmpRepo.GetAllEmployees().Find(Emp => Emp.Id == id));
+            }
+            else
+            {
+                return RedirectToAction("GetAllEmpDetails", "Employee", new { msg = "You can update only for your Emp ID: " + Convert.ToString(TempData["uid"]) });
+            }
+            
         }
         // POST:Update the details into database
         [HttpPost]

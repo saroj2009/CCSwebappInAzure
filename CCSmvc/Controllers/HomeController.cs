@@ -48,7 +48,8 @@ namespace CCSmvc.Controllers
 
             if (strNamesArray.Any(x => x == strName))
             {
-                ViewBag.emp = "1";
+                TempData["uid"] = strName;
+                //ViewBag.emp = "1";
             }
            
             List<Empdetails> Empdetails = new List<Empdetails>();

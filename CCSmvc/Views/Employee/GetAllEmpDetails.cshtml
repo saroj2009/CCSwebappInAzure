@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_MasterLayoutPage2.cshtml";
 }
 
+<p align="center" style="color:red">
+    <b>
+        @ViewBag.loginmsg
+    </b>
+</p>
 <p align="right" style="padding-right:200px">
     @Html.ActionLink("Create New", "AddEmployee")
 </p>
