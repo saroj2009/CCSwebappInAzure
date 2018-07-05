@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -26,6 +28,22 @@ namespace CCSmvc.Models
         }
         public string Url { get; set; }
 
+    }
+
+    [Table("EmpDetails")]
+    public class Empldetails
+    {
+        [Key]
+        public int? Id { get; set; }
+
+        [Required(ErrorMessage = "Required Name")]
+        public string Name { get; set; }
+        //[Required(ErrorMessage = "Required ContactName")]
+        public string Description { get; set; }
+        [Required(ErrorMessage = "Required DOB")]
+        public string DOB { get; set; }
+
+        
     }
     public class common
     {

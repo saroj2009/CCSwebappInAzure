@@ -10,6 +10,10 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using Microsoft.Azure;
 
+using CCSmvc.Models;
+using System.Data.Entity;
+
+
 namespace CCSmvc.Controllers
 {
     public class EmployeeController : Controller
@@ -197,6 +201,68 @@ namespace CCSmvc.Controllers
 
             }
             return View(blobs);
+        }
+
+        public JsonResult GetEmpDetails(string sord, int page, int rows, string searchString)
+        {
+            // Create Instance of DatabaseContext class for Accessing Database.
+            DatabaseContext db = new DatabaseContext();
+
+            //Setting Paging
+            int pageIndex = Convert.ToInt32(page) - 1;
+            int pageSize = rows;
+            //var Results = db.EmpDetails.Select(
+            //    a => new
+            //    {
+            //        a.Id,
+            //        a.Name,
+            //        a.Description,
+            //        a.DOB,
+                   
+            //    });
+
+            var Results = (from pd in db.EmpDetails
+                     join od in db.Payments on pd.Id.ToString() equals od.EmpID
+                     orderby od.EmpID
+                     select new
+                     {
+                         pd.Id,
+                         pd.Name,
+                         pd.Description,
+                         od.DOB,
+                     }).Distinct();
+          
+
+            //Get Total Row Count
+            int totalRecords = Results.Count();
+            var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
+
+            //Setting Sorting
+            if (sord.ToUpper() == "DESC")
+            {
+                Results = Results.OrderByDescending(s => s.Name);
+                Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
+            }
+            else
+            {
+                Results = Results.OrderBy(s => s.Name);
+                Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
+            }
+            //Setting Search
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                Results = Results.Where(m => m.Name == searchString || m.Name == searchString);
+            }
+            //Sending Json Object to View.
+            var jsonData = new
+            {
+                total = totalPages,
+                page,
+                records = totalRecords,
+                rows = Results
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
         }
         //[NonAction]
         //public void UploadImage_URL(string filepath, string filename)

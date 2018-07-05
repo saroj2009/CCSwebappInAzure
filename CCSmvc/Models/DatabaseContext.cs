@@ -12,6 +12,8 @@ namespace CCSmvc.Models
         {
         }
         public DbSet<Payments> Payments { get; set; }
-        
+
+        public DbSet<Empldetails> EmpDetails { get; set; }
+
     }
 }
