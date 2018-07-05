@@ -163,7 +163,7 @@ namespace CCSmvc.Controllers
                 //var fileName = Path.GetFileName(photo.FileName);
                 var fileName = Path.GetFileName(fileNameglobal.FileName);
                 if (fileName == "" || fileName == null)
-                    fileName = "NoImage.png";
+                    fileName = null;
                 obj.ImagePath = fileName;
 
                 EmpRepo.UpdateEmployee(obj);
