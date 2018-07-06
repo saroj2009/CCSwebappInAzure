@@ -122,7 +122,7 @@
             //    }
             //}
 
-            );
+        );
     });
 </script>
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
@@ -251,8 +251,19 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    <p align="center" style="color:red">
+        <b>
+            @if (ViewBag.invaliduser != null)
+            {
+                <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.invaliduser");
+            };
+                </script>
+            }
 
-
+        </b>
+    </p>
 
     <!-- Container (The Band Section) -->
     <div id="band" class="container text-center">
@@ -305,13 +316,13 @@
     <!-- Container (Contact Section) -->
     <!-- Add Google Maps -->
     <script>
-                        //function myMap() {
-                        //    var myCenter = new google.maps.LatLng(41.878114, -87.629798);
-                        //    var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: false, mapTypeId: google.maps.MapTypeId.ROADMAP };
-                        //    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-                        //    var marker = new google.maps.Marker({ position: myCenter });
-                        //    marker.setMap(map);
-                        //}
+                                        //function myMap() {
+                                        //    var myCenter = new google.maps.LatLng(41.878114, -87.629798);
+                                        //    var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: false, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                                        //    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                                        //    var marker = new google.maps.Marker({ position: myCenter });
+                                        //    marker.setMap(map);
+                                        //}
 
     </script>
     @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>*@

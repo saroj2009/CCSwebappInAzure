@@ -179,11 +179,33 @@ namespace CCSmvc.Controllers
         {
             try
             {
-                DeleteBlob(filename);
+               
                 EmpRepository EmpRepo = new EmpRepository();
-                if (EmpRepo.DeleteEmployee(id))
+                //if (EmpRepo.DeleteEmployee(id))
+                //{
+                //    ViewBag.AlertMsg = "Employee details deleted successfully";
+                //}
+                //return RedirectToAction("GetAllEmpDetails");
+
+
+                
+                if (Convert.ToString(TempData["uid"]) == "" || Convert.ToString(TempData["uid"]) == null)
                 {
-                    ViewBag.AlertMsg = "Employee details deleted successfully";
+                    return RedirectToAction("GetAllEmpDetails", "Employee", new { msg = "Please log in for profile update" });
+
+                }
+                else if (Convert.ToString(TempData["uid"]) == Convert.ToString(id))
+                {
+                    DeleteBlob(filename);
+                    if (EmpRepo.DeleteEmployee(id))
+                    {
+                        ViewBag.AlertMsg = "Employee details deleted successfully";
+                       
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmpDetails", "Employee", new { msg = "You can update only for your Emp ID: " + Convert.ToString(TempData["uid"]) });
                 }
                 return RedirectToAction("GetAllEmpDetails");
             }

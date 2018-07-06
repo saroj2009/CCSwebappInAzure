@@ -44,23 +44,28 @@ namespace CCSmvc.Controllers
         public ActionResult IndexPost(string inputlg)
         {
             string strName = inputlg;
-            string[] strNamesArray = { "159248", "288908", "409702", "590433", "505616", "556810", "457181", "553596", "585391", "350761", "536642", "571343" };
+            string[] strNamesArray = { "159248", "288908", "409702", "590433", "505616", "556810", "457181", "553596", "585391", "350761", "536642", "571343"};
 
             if (strNamesArray.Any(x => x == strName))
             {
                 TempData["uid"] = strName;
                 //ViewBag.emp = "1";
             }
-           
+            else
+            {
+                @ViewBag.invaliduser = "Please enter a valid User Id or contact your team administrator";
+               
+                //return Content("<script language='javascript' type='text/javascript'>alert('Please enter a valid User Id.(Contact your administrator)');</script>");
+            }
             List<Empdetails> Empdetails = new List<Empdetails>();
             Empdetails = getdata();
             return View(Empdetails.ToList());
         }
-            public List<Empdetails> getdata()
+        public List<Empdetails> getdata()
         {
 
             List<Empdetails> Empdetails = new List<Empdetails>();
-           // var con = "Server=tcp:sarojwebappdb.database.windows.net,1433;Initial Catalog=sarojwebappdb;Persist Security Info=False;User ID=sarojwebappdb;Password=Saroj@12345678;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";// ConfigurationManager.ConnectionStrings["Yourconnection"].ToString();
+            // var con = "Server=tcp:sarojwebappdb.database.windows.net,1433;Initial Catalog=sarojwebappdb;Persist Security Info=False;User ID=sarojwebappdb;Password=Saroj@12345678;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";// ConfigurationManager.ConnectionStrings["Yourconnection"].ToString();
             var con = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringName"].ConnectionString;
 
             using (SqlConnection myConnection = new SqlConnection(con))
@@ -79,12 +84,12 @@ namespace CCSmvc.Controllers
                         EmpdetailsObj.Name = oReader["Name"].ToString();
                         EmpdetailsObj.Description = oReader["Description"].ToString();
                         EmpdetailsObj.DOB = cmn.getDOB(oReader["DOB"].ToString());
-                        EmpdetailsObj.aid = "#"+"div" + i.ToString();
+                        EmpdetailsObj.aid = "#" + "div" + i.ToString();
                         EmpdetailsObj.dvid = "div" + i.ToString();
                         if (Convert.ToString(oReader["ImagePath"]) == "")
                             EmpdetailsObj.Image = "NoImage.png";
                         else
-                        EmpdetailsObj.Image = oReader["ImagePath"].ToString();
+                            EmpdetailsObj.Image = oReader["ImagePath"].ToString();
                         Empdetails.Add(EmpdetailsObj);
                         i++;
                     }
@@ -93,9 +98,9 @@ namespace CCSmvc.Controllers
                 }
             }
             return Empdetails;
-       
-    }
-        
+
+        }
+
         //public ActionResult About()
         //{
         //    ViewBag.Message = "Your application description page.";
