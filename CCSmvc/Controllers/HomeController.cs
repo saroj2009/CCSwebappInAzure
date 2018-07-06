@@ -44,9 +44,11 @@ namespace CCSmvc.Controllers
         public ActionResult IndexPost(string inputlg)
         {
             string strName = inputlg;
-            string[] strNamesArray = { "159248", "288908", "409702", "590433", "505616", "556810", "457181", "553596", "585391", "350761", "536642", "571343"};
+           // string[] strNamesArray = { "159248", "288908", "409702", "590433", "505616", "556810", "457181", "553596", "585391", "350761", "536642", "571343"};
 
-            if (strNamesArray.Any(x => x == strName))
+            //if (strNamesArray.Any(x => x == strName))
+            //{
+            if (isValidUser(strName) > 0)
             {
                 TempData["uid"] = strName;
                 //ViewBag.emp = "1";
@@ -101,6 +103,29 @@ namespace CCSmvc.Controllers
 
         }
 
+        public int isValidUser(string userId)
+        {
+
+            var con = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringName"].ConnectionString;
+            int count = 0;
+            using (SqlConnection myConnection = new SqlConnection(con))
+            {
+                string oString = "Select * from EmpDetails where Id="+ Convert.ToInt32(userId);
+                SqlCommand oCmd = new SqlCommand(oString, myConnection);
+                //oCmd.Parameters.AddWithValue("@Fname", fName);
+                myConnection.Open();
+                using (SqlDataReader oReader = oCmd.ExecuteReader())
+                {
+                    while (oReader.Read())
+                    {
+                        count++;
+                    }
+                    myConnection.Close();
+                }
+            }
+            return count;
+
+        }
         //public ActionResult About()
         //{
         //    ViewBag.Message = "Your application description page.";
