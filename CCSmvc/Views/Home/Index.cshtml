@@ -32,16 +32,16 @@
                         search: false
                     },
                     {
-                        name: "Id", editable: false, editrules: { required: true }, search: true
+                        name: "Id", width: 60, editable: false, editrules: { required: true }, search: true
                     },
                     {
-                        name: "Name", editable: false, editrules: { required: true }, search: true
+                        name: "Name", width: 200, editable: false, editrules: { required: true }, search: true
                     },
                     {
-                        name: 'Description', editable: false, editrules: { required: false }, search: false
+                        name: 'Description', width: 300, editable: false, editrules: { required: false }, search: false
                     },
                     {
-                        name: "DOB", editable: false, editrules: { required: true }, search: false
+                        name: "DOB", width: 100, editable: false, editrules: { required: true }, search: false
                     }
                 ],
                 height: '100%',
@@ -62,7 +62,8 @@
                     repeatitems: false,
                     Id: "0"
                 },
-                autowidth: true
+                autowidth: false,
+                width: 700
             }).navGrid('#pager',
             {
                 edit: false,
