@@ -18,23 +18,67 @@
 
 </head>
 <body>
+    @using (Html.BeginForm("AddImage", "Album", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
     <div class="container gallery-container">
         <h1>CCS Team Gallery</h1>
         <p class="page-description text-center">Kolkata CCS Team</p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="color:green">
+                @ViewBag.Message
+            </div>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Upload Image</h4>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p class="col-sm-6">
+                            @*<label class="control-label col-md-2" for="Photo">Photo</label>*@
+                            <input type="file" name="photo" />
+                        </p>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input type="submit" value="Submit" class="btn" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <div class="tz-gallery">
             <div class="row">
                 @foreach (var item in Model)
-                {
-            <div class="col-sm-6 col-md-4">
-                <a class="lightbox" href=@item.Url@item.Name>
-                    <img src=@item.ThumbnailUrl@item.Name alt="Park">
-                </a>
-            </div>}
-            
+            {
+                <div class="col-sm-6 col-md-4">
+                    <a class="lightbox" href=@item.Url@item.Name>
+                        <img src=@item.ThumbnailUrl@item.Name alt="Park">
+                    </a>
+                </div>}
+
             </div>
         </div>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+            Add Image
+        </button>
     </div>
+       
+    }
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>
         baguetteBox.run('.tz-gallery');

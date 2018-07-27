@@ -12,6 +12,7 @@ namespace CCSmvc.Controllers
 {
     public class AlbumController : Controller
     {
+        AlbumBlobServices _blobServices = new AlbumBlobServices();
         // GET: Album
         public ActionResult Index()
         {
@@ -52,6 +53,45 @@ namespace CCSmvc.Controllers
                 }
             }
             return View(blobs);
+        }
+        [HttpPost]
+        public ActionResult AddImage(FormCollection image)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    HttpPostedFileBase fileNameglobal = null;
+                    foreach (string item in Request.Files)
+                    {
+                        HttpPostedFileBase file = Request.Files[item] as HttpPostedFileBase;
+                        fileNameglobal = file;
+                        if (file.ContentLength == 0)
+                            continue;
+
+                        if (file.ContentLength > 0)
+                        {
+
+                            CloudBlobContainer blobContainer = _blobServices.GetCloudBlobContainer();
+                            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(file.FileName);
+                            blob.UploadFromStream(file.InputStream);
+
+
+                        }
+                    }
+
+                    ViewBag.Message = "Records added successfully.";
+                }
+
+                //return View();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
     }
 }
